@@ -9,7 +9,12 @@ app.get('/gdphtop', async (req, res) => {
     const url = 'https://gdph.ps.fhgdps.com/tools/stats/top24h.php';
 
     try {
-        const response = await axios.get(url);
+        // Single set of headers with Mozilla-like user-agent
+        const headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Firefox/91.0'
+        };
+
+        const response = await axios.get(url, { headers });
         const html = response.data;
         const $ = cheerio.load(html);
 
